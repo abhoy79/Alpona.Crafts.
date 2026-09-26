@@ -1,6 +1,4 @@
-[index.html](https://github.com/user-attachments/files/32688053/index.html)
-# Alpona.Crafts.
-Hand-painted apparel created with brushstroke artistry. Explore our exclusive collection of handcrafted Punjabis made with pure love and Bengali tradition.
+[index (2).html](https://github.com/user-attachments/files/32688415/index.2.html)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -574,6 +572,7 @@ Hand-painted apparel created with brushstroke artistry. Explore our exclusive co
     border-radius:6px;
     padding:26px 26px 22px;
     box-shadow:var(--shadow);
+    position:relative;
   }
   .modal-box h3{font-size:1.5rem; color:var(--maroon-dark); margin-bottom:4px;}
   .modal-box .sub{font-size:0.85rem; color:var(--ink-soft); margin-bottom:18px;}
@@ -641,7 +640,6 @@ Hand-painted apparel created with brushstroke artistry. Explore our exclusive co
     font-size:1.4rem;
     color:var(--ink-soft);
   }
-  .modal-box{position:relative;}
   .confirm-screen{text-align:center; padding:20px 4px;}
   .confirm-screen .tick{
     width:56px; height:56px;
@@ -874,7 +872,7 @@ const PRODUCTS = [
 
 const TAG_COLORS = { white:'#8C8C8C', red:'#A3273A', blue:'#2B5C8A', green:'#3B6B45' };
 const SHOP_PHONE = '918167714798';
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID'; // <-- REPLACE with your real Formspree form ID
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mnpngwnk';
 
 /* =========================================================
    STATE
@@ -1001,7 +999,7 @@ function renderCart(){
 }
 
 /* =========================================================
-   ORDER SUMMARY TEXT (shared by email + WhatsApp)
+   ORDER SUMMARY TEXT (used by WhatsApp order message)
    ========================================================= */
 function buildOrderSummaryText(){
   const lines = getCartLines();
@@ -1068,7 +1066,13 @@ function closeModal(){
   checkoutModal.classList.remove('show');
   overlay.classList.remove('show');
 }
-document.getElementById('openCheckoutBtn').addEventListener('click', ()=>{ closeCart(); openModal(); });
+document.getElementById('openCheckoutBtn').addEventListener('click', ()=>{
+  closeCart();
+  document.getElementById('checkoutFormWrap').style.display = 'block';
+  document.getElementById('confirmScreen').style.display = 'none';
+  document.getElementById('orderForm').reset();
+  openModal();
+});
 document.getElementById('closeModalBtn').addEventListener('click', closeModal);
 
 document.getElementById('orderForm').addEventListener('submit', async function(e){
@@ -1121,13 +1125,6 @@ document.getElementById('orderForm').addEventListener('submit', async function(e
     submitBtn.disabled = false;
     submitBtn.textContent = 'Confirm & Send Order';
   }
-});
-
-/* Reset modal to form view whenever it's reopened after a successful order */
-document.getElementById('openCheckoutBtn').addEventListener('click', ()=>{
-  document.getElementById('checkoutFormWrap').style.display = 'block';
-  document.getElementById('confirmScreen').style.display = 'none';
-  document.getElementById('orderForm').reset();
 });
 
 /* =========================================================
